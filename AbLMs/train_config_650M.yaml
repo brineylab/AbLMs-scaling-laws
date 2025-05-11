@@ -16,18 +16,23 @@ truncation: True
 return_special_tokens_mask: False
 separator_token: "<cls><cls>"
 
-# Datasets
-#Full data
-train_file: "./training/train_dataset.csv"
+# --- Datasets ---
+# The 'validation_file' and 'file_type' are common for all training configurations.
+# Select the desired training dataset size by uncommenting one of the 'train_file' options below.
+
 validation_file: "./validation/validation_dataset.csv"
-file_type: "csv"
+file_type: "csv" # Assuming CSV for all train/validation files
 
-#Half data
-#train_file: "./training/training_half.csv"
+# Option 1: Full Training Dataset (Currently Active)
+train_file: "./training/training_full.csv"
 
-#Quarter data
-#train_file: "./training/training_quarter.csv"
+# Option 2: Half Training Dataset
+# To use, comment out the 'train_file' for the Full Dataset above and uncomment the line below.
+# train_file: "./training/training_half.csv"
 
+# Option 3: Quarter Training Dataset
+# To use, comment out the 'train_file' for the Full Dataset above (or Half, if active) and uncomment the line below.
+# train_file: "./training/training_quarter.csv"
 
 
 # Collator  
