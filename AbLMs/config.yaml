@@ -1,0 +1,53 @@
+vocab_size: 33
+pad_token_id: 1
+mask_token_id: 32
+num_attention_heads: 20
+num_hidden_layers: 33
+hidden_size: 1280
+intermediate_size: 5120
+max_position_embeddings: 322
+position_embedding_type: "rotary"
+
+# Tokenizer  
+tokenizer_path: "facebook/esm2_t33_650M_UR50D"
+padding: "max_length"
+max_length: 320
+truncation: True
+return_special_tokens_mask: False
+separator_token: "<cls><cls>"
+
+# Datasets  
+train_file: "/home/jovyan/shared/mahdi/1_projects/model_optimization/03data/cluster_90_full_data/training/train_dataset.csv"
+validation_file: "/home/jovyan/shared/mahdi/1_projects/model_optimization/03data/cluster_90_full_data/validation/validation_dataset.csv"
+file_type: "csv"
+
+# Collator  
+mlm: True
+mlm_probability: 0.15
+
+# Training Arguments  
+run_name: "esm_650M_full_batch_128"
+fp16: True
+seed: 42
+batch_size: 16
+gradient_accumulation_steps: 1
+logging_steps: 100
+evaluation_strategy: "steps"
+eval_steps: 5000
+save_steps: 5000
+
+warmup_steps: 30000
+max_steps: 500000
+
+peak_learning_rate: 0.0001
+weight_decay: 0.01
+adam_epsilon: 0.000001
+adam_beta1: 0.9
+adam_beta2: 0.98
+
+overwrite_output_dir: False
+output_dir: "/home/jovyan/shared/mahdi/1_projects/model_optimization/01all_esm_models/deepspeed/esm/all_checkpoints_4good/{run_name}"
+report_to: "wandb"
+wandb_project: "ESM_TRAIN"  # Update this with your own project!  
+logging_first_step: True
+logging_dir: "./wandb/{run_name}"               
