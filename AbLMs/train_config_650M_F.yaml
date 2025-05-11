@@ -16,16 +16,27 @@ truncation: True
 return_special_tokens_mask: False
 separator_token: "<cls><cls>"
 
-# Datasets  
-train_file: "/home/jovyan/shared/mahdi/1_projects/model_optimization/03data/cluster_90_full_data/training/train_dataset.csv"
-validation_file: "/home/jovyan/shared/mahdi/1_projects/model_optimization/03data/cluster_90_full_data/validation/validation_dataset.csv"
+# Datasets
+#Full data
+train_file: "./training/train_dataset.csv"
+validation_file: "./validation/validation_dataset.csv"
 file_type: "csv"
+
+#Half data
+#train_file: "./training/training_half.csv"
+
+#Quarter data
+#train_file: "./training/training_quarter.csv"
+
+
 
 # Collator  
 mlm: True
 mlm_probability: 0.15
 
-# Training Arguments  
+# --- Training Arguments ---
+
+# Modify 'run_name' to reflect the dataset size (e.g., "esm_650M_half_batch_128") if not training on the 'full' dataset.
 run_name: "esm_650M_full_batch_128"
 fp16: True
 seed: 42
