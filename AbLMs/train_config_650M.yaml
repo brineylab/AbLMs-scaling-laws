@@ -45,7 +45,7 @@ mlm_probability: 0.15
 run_name: "esm_650M_full_batch_128"
 fp16: True
 seed: 42
-batch_size: 16
+batch_size: 32
 gradient_accumulation_steps: 1
 logging_steps: 100
 evaluation_strategy: "steps"
