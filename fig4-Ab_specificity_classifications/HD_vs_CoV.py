@@ -157,9 +157,11 @@ def main():
                             })
 
     # wandb
-    os.environ['WANDB_PROJECT'] = 'Class_CoV_b128_5fold_FINAL'
-    os.environ['WANDB_RUN_GROUP'] = 'esm_150M_full_b128_HD-CoV'
+    #You can change the project name and run group to your own project and run group
+    os.environ['WANDB_PROJECT'] = 'Class_HD-CoV'
+    os.environ['WANDB_RUN_GROUP'] = '150M_full_b128' #you can change this to your own model name
     os.environ['WANDB_JOB_TYPE'] = args.model_name
+
     
     # loop through datasets
     for i in range(5):
@@ -221,7 +223,7 @@ def main():
         filtered_metrics['itr'] = i
         results = results.append(filtered_metrics, ignore_index=True)
 
-    results.to_csv(f"/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/results/{args.model_name}_HD-CoV-5fold_results.csv", index=False)
+    results.to_csv(f"/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/results_HDvsCoV/{args.model_name}_HD-CoV-5fold_results.csv", index=False)
 
 if __name__ == "__main__":
     main()
