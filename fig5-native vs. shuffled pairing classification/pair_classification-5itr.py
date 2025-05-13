@@ -218,7 +218,6 @@ def main():
             os.environ["WANDB_RUN_GROUP"] = train_config.get("wandb_group")
             os.environ["WANDB_JOB_TYPE"] = train_config.get("model_name")
         wandb.login()
-    
         # train
         trainer = Trainer(
             model = model,
