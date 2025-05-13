@@ -14,16 +14,16 @@ The fine-tuning scripts: `HD_vs_CoV.py` and `HD_vs_CoV_vs_Flu.py`  can be run us
 ## Data Setup
 
 * The script expects 5 sets of train/test CSV files for cross-validation.
-* **Crucially, data paths are hardcoded.** You MUST either:
-    1.  Place your data at:
+* **Crucially, data paths are hardcoded.** You MUST modify these paths directly in the `main()` function of the script:
+    
         * `'/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/data/5_folded/hd-0_cov-1_train{i}.csv'`
         * `'/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/data/5_folded/hd-0_cov-1_test{i}.csv'` (where `{i}` is 0 through 4)
-    2.  OR modify these paths directly in the `main()` function of the script.
-* CSVs need "h_sequence", "l_sequence", and a label column. A "name" column is also expected.
+  
+* CSVs need "h_sequence", "l_sequence", and a label column. 
 
 ## Running the Script
 
-Use `accelerate launch` with the script name and provide the `--model` (path to pre-trained model/checkpoint) and `--model_name` (for logging) arguments.
+Use `accelerate launch` with the script name and provide the `--model` (path to pre-trained model checkpoint) and `--model_name` (for logging) arguments.
 
 **Command Template:**
 
