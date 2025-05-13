@@ -1,0 +1,51 @@
+
+# Freeze Base Model Weights or Fine-tune
+freeze_weights: True
+
+# Base Model (replace with the actual model name/path)
+model_name: "150M_FULL"  # <-- Change this to the model name you want to use for classification (e.g., "350M_FULL")
+model_path: "/home/jovyan/shared/mahdi/1_projects/model_optimization/01all_esm_models/deepspeed/esm/all_checkpoints_4good/esm_150M_full_batch_128_2025-02-11/checkpoint-500000"  
+# <-- Update this to the correct checkpoint path for your selected model
+
+# Classes
+class_0: "native-pair"
+class_1: "shuffled-pair"
+
+# Tokenizer
+tokenizer_path: "facebook/esm2_t30_150M_UR50D"
+max_length: 320
+separator_token: "<cls><cls>"
+
+# Datasets (replace with the path that your data is in there)
+data_path: "/home/jovyan/shared/mahdi/1_projects/model_optimization/08paired_classification/data/train-test_splits/native-0_shuffled-1_"
+file_type: "csv"
+
+# Training Arguments
+task_name: "Paired_class_Final"  # <-- You can set a custom task name to reflect the model or experiment (e.g., "paired_classifier_350M")
+fp16: True
+seed: 42
+
+batch_size: 32
+num_train_epochs: 50
+logging_steps: 203
+evaluation_strategy: "steps"
+save_strategy: "no"
+eval_steps: 406
+
+learning_rate: 0.00005
+lr_scheduler_type: "linear"
+warmup_ratio: 0.1
+
+output_dir: "./output/"
+logging_first_step: True
+logging_dir: "./logs/"
+report_to: "wandb"  # replace with "wandb" for logging using wandb.ai
+
+# Weights and Biases (replace with your own logging)
+wandb_project: "Paired_Classficiation"
+wandb_group: "Paired_Classficiation"
+
+# Saving Results
+results_dir: "./results/"  
+save_model: True
+model_save_dir: "./paired_clssification_models/5fold/"
