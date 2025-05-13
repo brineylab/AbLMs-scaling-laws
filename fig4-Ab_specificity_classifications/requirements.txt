@@ -1,4 +1,4 @@
-# Core machine learning and data handling libraries
+
 numpy
 pandas
 torch
@@ -14,6 +14,3 @@ evaluate
 wandb
 
 # Note: Specific versions are not pinned here.
-# For a reproducible environment, after installing these in a clean virtual environment,
-# you can generate a version-pinned requirements file using:
-# pip freeze > requirements_pinned.txt
