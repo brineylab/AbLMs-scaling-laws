@@ -6,4 +6,4 @@ The fine-tuning script `HD_vs_CoV.py` can be run with its associated config file
 
 accelerate launch HD_vs_CoV.py \
     --model /path/to/your/model/checkpoints/ \
-    --model_name <8M_F>
+    --model_name <model_name>
