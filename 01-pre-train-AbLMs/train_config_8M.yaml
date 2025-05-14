@@ -9,16 +9,16 @@ max_position_embeddings: 322
 position_embedding_type: "rotary"  
   
 # Tokenizer  
-tokenizer_path: "facebook/esm2_t6_8M_UR50D"  # Update to match the new model size if available  
+tokenizer_path: "facebook/esm2_t6_8M_UR50D"   
 padding: "max_length"  
-max_length: 320  # Same as before  
+max_length: 320  
 truncation: True  
 return_special_tokens_mask: False  
 separator_token: "<cls><cls>"  
   
 # --- Datasets ---
 # The 'validation_file' and 'file_type' are common for all training configurations.
-# Select the desired training dataset size by uncommenting one of the 'train_file' options below.
+# Change the training dataset size to your chosen size in 'train_file' options below.
 
 validation_file: "./validation/validation_dataset.csv"
 file_type: "csv" # Assuming CSV for all train/validation files
@@ -41,8 +41,8 @@ mlm_probability: 0.15
   
 # --- Training Arguments ---
 
-# Modify 'run_name' to reflect the dataset size (e.g., "esm_8M_half") if not training on the 'full' dataset.
-run_name: "esm_8M_full_batch_128"
+# Modify 'run_name' to reflect the dataset size (e.g., "m_8M_half_batch_128") if not training on the 'full' dataset.
+run_name: "m_8M_full_batch_128"
 fp16: True  
 seed: 42  
 batch_size: 32  
@@ -64,6 +64,6 @@ adam_beta2: 0.98
 overwrite_output_dir: False  
 output_dir: "/home/jovyan/shared/mahdi/1_projects/model_optimization/01all_esm_models/deepspeed/esm/all_checkpoints_4good/{run_name}"
 report_to: "wandb"  
-wandb_project: "ESM_TRAIN"  # Updated project name  
+wandb_project: "AbLM_TRAIN"  # Updated project name  
 logging_first_step: True  
 logging_dir: "./wandb/{run_name}"  
