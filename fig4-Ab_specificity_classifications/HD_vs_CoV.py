@@ -223,7 +223,6 @@ def main():
         filtered_metrics['itr'] = i
         results = results.append(filtered_metrics, ignore_index=True)
 
-    results.to_csv(f"/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/results_HDvsCoV/{args.model_name}_HD-CoV-5fold_results.csv", index=False)
-
+    results.to_csv(f"./fig4-Ab_specificity_classifications/results_HDvsCoV/{args.model_name}_HD-CoV-5fold_results.csv", index=False)
 if __name__ == "__main__":
     main()

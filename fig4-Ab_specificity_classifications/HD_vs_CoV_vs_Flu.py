@@ -153,8 +153,8 @@ def main():
 
         # load dataset
         data_files = DatasetDict({
-            'train': f'/home/jovyan/shared/mahdi/1_projects/model_optimization/07HDvsFluvsCov/data/5_folded/hd-0_flu-1_cov-2_train{i}.csv',
-            'test': f'/home/jovyan/shared/mahdi/1_projects/model_optimization/07HDvsFluvsCov/data/5_folded/hd-0_flu-1_cov-2_test{i}.csv'
+            'train': f'./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_train{i}.csv',
+            'test': f'./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_test{i}.csv'
         })
         dataset = load_dataset('csv', data_files=data_files)
 
@@ -205,7 +205,7 @@ def main():
         filtered_metrics['itr'] = i
         results = results.append(filtered_metrics, ignore_index=True)
 
-    results.to_csv(f"/home/jovyan/shared/mahdi/1_projects/model_optimization/07HDvsFluvsCov/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv", index=False)
+    results.to_csv(f"./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv", index=False)
 
 if __name__ == "__main__":
     main()
