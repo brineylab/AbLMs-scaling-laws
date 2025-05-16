@@ -6,6 +6,7 @@ The fine-tuning scripts: `HD_vs_CoV.py` and `HD_vs_CoV_vs_Flu.py`  can be run us
 
 1.  **Environment:** Python 3.8+ (virtual environment recommended).
 2.  **Dependencies:**  install packages in requirements.txt
+3.  **split the data using stratified-kfold-split.ipynb***
     
 3.  **Configuration:**
     * Configure Hugging Face Accelerate: `accelerate config`
