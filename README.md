@@ -1,5 +1,6 @@
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?logo=Jupyter)](https://jupyter.org/try)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447079.svg)](https://doi.org/10.5281/zenodo.15447079)
 
 # Data-optimal scaling laws for natively paired antibody language models
 
@@ -28,5 +29,4 @@ Training datasets can be downloaded from Zenodo and weights for the pre-trained 
 
 The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.05.10) can be cited as:
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447079.svg)](https://doi.org/10.5281/zenodo.15447079)
-
+`Shafiei Neyestanak, M., & Briney, B. (2025). Scaling laws in antibody language models reveal data-constrained optima (v2025.05.16) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15447079`
