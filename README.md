@@ -28,4 +28,5 @@ Training datasets can be downloaded from Zenodo and weights for the pre-trained 
 
 The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.05.10) can be cited as:
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447079.svg)](https://doi.org/10.5281/zenodo.15447079)
 
