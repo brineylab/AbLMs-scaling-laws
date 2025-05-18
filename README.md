@@ -1,7 +1,7 @@
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?logo=Jupyter)](https://jupyter.org/try)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-# Scaling laws in antibody language models reveal data-constrained optima
+# Data-optimal scaling laws for natively paired antibody language models
 
 **Motivation**: Antibody language models (AbLMs) play a critical role in exploring the extensive sequence diversity of antibody repertoires, significantly enhancing therapeutic discovery. However, the optimal strategy for scaling these models, particularly concerning the interplay between model size and data availability, remains underexplored, especially in contrast to natural language processing where data is abundant. This study aims to systematically investigate scaling laws in AbLMs to define optimal scaling thresholds and maximize their potential in antibody engineering and discovery.
 
