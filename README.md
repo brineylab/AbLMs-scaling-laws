@@ -29,4 +29,6 @@ Training datasets can be downloaded from Zenodo and weights for the pre-trained 
 
 The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.05.10) can be cited as:
 
-`Shafiei Neyestanak, M., & Briney, B. (2025). Scaling laws in antibody language models reveal data-constrained optima (v2025.05.16) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15447079`
+```
+Shafiei Neyestanak, M., & Briney, B. (2025). Scaling laws in antibody language models reveal data-constrained optima (v2025.05.16) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15447079
+``` 
