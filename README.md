@@ -20,8 +20,7 @@ Within each of these model-specific YAML files, you can select the dataset size 
 
 Base models can be trained from scratch by running `ModelTrainer.py` with an associated `train-config_<modelname>.yaml`, as described [here](https://github.com/brineylab/deepspeed/tree/main).
 
-Training datasets can be downloaded from Zenodo and weights for the pre-trained model checkpoints used in the paper can also be downloaded from [Zenodo] (https://zenodo.org/records/15447079).
-
+Training datasets can be downloaded from Zenodo and weights for the pre-trained model checkpoints used in the paper can also be downloaded from [Zenodo](https://zenodo.org/records/15447079)
 
 
 ## Citation
