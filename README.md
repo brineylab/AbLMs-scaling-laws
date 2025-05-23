@@ -1,5 +1,6 @@
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?logo=Jupyter)](https://jupyter.org/try)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447079.svg)](https://doi.org/10.5281/zenodo.15447079)
 
 # Data-optimal scaling laws for natively paired antibody language models
@@ -19,8 +20,7 @@ Within each of these model-specific YAML files, you can select the dataset size 
 
 Base models can be trained from scratch by running `ModelTrainer.py` with an associated `train-config_<modelname>.yaml`, as described [here](https://github.com/brineylab/deepspeed/tree/main).
 
-Training datasets can be downloaded from Zenodo and weights for the pre-trained model checkpoints used in the paper can also be downloaded from [Zenodo] ().
-
+Training datasets can be downloaded from Zenodo and weights for the pre-trained model checkpoints used in the paper can also be downloaded from [Zenodo] (https://zenodo.org/records/15447079).
 
 
 
