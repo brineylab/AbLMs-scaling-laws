@@ -1,20 +1,8 @@
-
-
-The fine-tuning scripts: `HD_vs_CoV.py` and `HD_vs_CoV_vs_Flu.py`  can be run using DeepSpeed, as described [here](https://github.com/brineylab/deepspeed/tree/main). Descriptions bellow can be followed for creating environment to run the scripts.
-
-## Prerequisites
-
-1.  **Environment:** Python 3.8+ (virtual environment recommended).
-2.  **Dependencies:**  install packages in requirements.txt
-3.  **split the data using stratified-kfold-split.ipynb**
-    
-3.  **Configuration:**
-    * Configure Hugging Face Accelerate: `accelerate config`
-    * Login to Weights & Biases: `wandb login`
+The fine-tuning scripts: `02_HD_vs_CoV.py` and `02_HD_vs_CoV_vs_Flu.py`  can be run using DeepSpeed, as described [here](https://github.com/brineylab/deepspeed/tree/main).
 
 ## Data Setup
 
-* The script expects 5 sets of train/test CSV files for cross-validation.
+* The script expects 5 sets of train/test CSV files for cross-validation. Split the data using `01_stratified-kfold-split.ipynb`.
 * **Crucially, data paths are hardcoded.** You MUST modify these paths directly in the `main()` function of the script:
     
         * `'/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/data/5_folded/hd-0_cov-1_train{i}.csv'`
@@ -24,11 +12,10 @@ The fine-tuning scripts: `HD_vs_CoV.py` and `HD_vs_CoV_vs_Flu.py`  can be run us
 
 ## Running the Script
 
-Use `accelerate launch` with the script name and provide the `--model` (path to pre-trained model checkpoint) and `--model_name` (for logging) arguments.
-
-**Command Template:**
+Use `accelerate launch` with the script name and provide the `--model` (path to pre-trained model checkpoint) and `--model_name` (for logging) arguments. For example:
 
 ```bash
-accelerate launch YOUR_SCRIPT_NAME.py \
+accelerate launch 02_HD_vs_CoV.py \
     --model PATH_TO_ESM_MODEL_OR_CHECKPOINT \
     --model_name YOUR_DESCRIPTIVE_MODEL_NAME
+```

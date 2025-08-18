@@ -11,30 +11,27 @@ from transformers import (
     Trainer,
     TrainingArguments,
 )
-#from esm_classifier_atten import EsmForSeqClassWithAtten
-import torch
 from sklearn.metrics import (
     precision_score,
     recall_score,
     f1_score,
     matthews_corrcoef,
-    roc_auc_score,
-    average_precision_score,
-    accuracy_score
+    accuracy_score,
 )
 import evaluate
+
 accuracy = evaluate.load("accuracy")
 from datetime import date
-from random import randint
 import wandb
 import pandas as pd
 import numpy as np
 import os
 
+
 # parser
 def parser():
     parser = argparse.ArgumentParser()
-    
+
     parser.add_argument(
         "--model",
         default=None,
@@ -50,42 +47,45 @@ def parser():
     args = parser.parse_args()
     return args
 
+
 # processing and tokenization
 def preprocess_dataset(
-    batch, 
-    tokenizer=None, 
-    tokenizer_path="facebook/esm2_t12_35M_UR50D", 
+    batch,
+    tokenizer=None,
+    tokenizer_path="facebook/esm2_t12_35M_UR50D",
     separator="<sep>",
-    max_len=320
+    max_len=320,
 ) -> list:
-        
-    sequences = [h + separator + l for h, l in zip(batch["h_sequence"], batch["l_sequence"])]
-    tokenized = tokenizer(sequences, padding="max_length", max_length=max_len, truncation=True)
+
+    sequences = [
+        h + separator + l for h, l in zip(batch["h_sequence"], batch["l_sequence"])
+    ]
+    tokenized = tokenizer(
+        sequences, padding="max_length", max_length=max_len, truncation=True
+    )
     batch["input_ids"] = tokenized.input_ids
     batch["attention_mask"] = tokenized.attention_mask
-    
+
     return batch
+
 
 # setup training args
 def def_training_args(run_name, batch_size=8, lr=5e-5):
     training_args = TrainingArguments(
-        run_name = run_name,
+        run_name=run_name,
         seed=42,
         fp16=True,
-        
         # train
         learning_rate=lr,
-        per_device_train_batch_size=batch_size, 
+        per_device_train_batch_size=batch_size,
         num_train_epochs=5,
         warmup_ratio=0.1,
-        lr_scheduler_type='linear',
-        
+        lr_scheduler_type="linear",
         # eval
-        eval_strategy = "steps",
+        eval_strategy="steps",
         eval_steps=250,
-        per_device_eval_batch_size=batch_size, 
+        per_device_eval_batch_size=batch_size,
         eval_accumulation_steps=50,
-
         # saving & logging
         logging_steps=50,
         save_strategy="no",
@@ -93,32 +93,33 @@ def def_training_args(run_name, batch_size=8, lr=5e-5):
         report_to="wandb",
         logging_dir=f"./logs/{run_name}",
         logging_first_step=True,
-        
     )
     return training_args
+
 
 # classification metrics
 # for normal classifier
 def compute_metrics(eval_pred):
     logits, labels = eval_pred
-    preds = np.argmax(logits, axis = -1)
+    preds = np.argmax(logits, axis=-1)
     return {
         "accuracy": accuracy_score(labels, preds),
-        "macro-precision": precision_score(labels, preds, average='macro'),
-        "macro-recall": recall_score(labels, preds, average='macro'),
-        "macro-f1": f1_score(labels, preds, average='macro'),
-        "micro-precision": precision_score(labels, preds, average='micro'),
-        "micro-recall": recall_score(labels, preds, average='micro'),
-        "micro-f1": f1_score(labels, preds, average='micro'),
+        "macro-precision": precision_score(labels, preds, average="macro"),
+        "macro-recall": recall_score(labels, preds, average="macro"),
+        "macro-f1": f1_score(labels, preds, average="macro"),
+        "micro-precision": precision_score(labels, preds, average="micro"),
+        "micro-recall": recall_score(labels, preds, average="micro"),
+        "micro-f1": f1_score(labels, preds, average="micro"),
         "mcc": matthews_corrcoef(labels, preds),
     }
+
 
 def main():
     # args
     args = parser()
 
     # labels
-    class_labels = ClassLabel(names=['Healthy-donor','Flu-specific','Sars-specific'])
+    class_labels = ClassLabel(names=["Healthy-donor", "Flu-specific", "Sars-specific"])
     n_classes = len(class_labels.names)
     label2id = {"Healthy-donor": 0, "Flu-specific": 1, "Sars-specific": 2}
     id2label = {0: "Healthy-donor", 1: "Flu-specific", 2: "Sars-specific"}
@@ -127,24 +128,27 @@ def main():
     tokenizer = EsmTokenizer.from_pretrained("facebook/esm2_t12_35M_UR50D")
 
     # test results
-    results = pd.DataFrame({"model": [],
-                            "itr": [],
-                            "test_loss": [],
-                            "test_accuracy": [],
-                            "test_macro-precision": [],
-                            "test_micro-precision": [],
-                            "test_macro-recall": [],
-                            "test_micro-recall": [],
-                            "test_macro-f1": [],
-                            "test_micro-f1": [],
-                            "test_mcc": [],
-                            })
+    results = pd.DataFrame(
+        {
+            "model": [],
+            "itr": [],
+            "test_loss": [],
+            "test_accuracy": [],
+            "test_macro-precision": [],
+            "test_micro-precision": [],
+            "test_macro-recall": [],
+            "test_micro-recall": [],
+            "test_macro-f1": [],
+            "test_micro-f1": [],
+            "test_mcc": [],
+        }
+    )
 
     # wandb - you can change the project name and run group to your own project and run group
-    os.environ['WANDB_PROJECT'] = 'HD_vs_CoV_vs_Flu_FINAL'
-    os.environ['WANDB_RUN_GROUP'] = 'HD-Flu-CoV'
-    os.environ['WANDB_JOB_TYPE'] = args.model_name
-    
+    os.environ["WANDB_PROJECT"] = "HD_vs_CoV_vs_Flu_FINAL"
+    os.environ["WANDB_RUN_GROUP"] = "HD-Flu-CoV"
+    os.environ["WANDB_JOB_TYPE"] = args.model_name
+
     # loop through datasets
     for i in range(5):
 
@@ -152,11 +156,13 @@ def main():
         training_args = def_training_args(run_name)
 
         # load dataset
-        data_files = DatasetDict({
-            'train': f'./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_train{i}.csv',
-            'test': f'./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_test{i}.csv'
-        })
-        dataset = load_dataset('csv', data_files=data_files)
+        data_files = DatasetDict(
+            {
+                "train": f"./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_train{i}.csv",
+                "test": f"./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_test{i}.csv",
+            }
+        )
+        dataset = load_dataset("csv", data_files=data_files)
 
         # tokenize
         tokenized_dataset = dataset.map(
@@ -166,46 +172,51 @@ def main():
                 "max_len": 320,
             },
             batched=True,
-            remove_columns=["name", "h_sequence", "l_sequence"]
+            remove_columns=["name", "h_sequence", "l_sequence"],
         )
-    
+
         # model
         # model = EsmForSeqClassWithAtten.from_pretrained(
         model = EsmForSequenceClassification.from_pretrained(
-            args.model, 
+            args.model,
             num_labels=n_classes,
             label2id=label2id,
             id2label=id2label,
         )
         for param in model.base_model.parameters():
             param.requires_grad = False
-    
+
         # trainer
         trainer = Trainer(
             model,
             args=training_args,
             tokenizer=tokenizer,
-            train_dataset=tokenized_dataset['train'],
-            eval_dataset=tokenized_dataset['test'],
-            compute_metrics=compute_metrics#_atten
+            train_dataset=tokenized_dataset["train"],
+            eval_dataset=tokenized_dataset["test"],
+            compute_metrics=compute_metrics,  # _atten
         )
         trainer.train()
-        
-    
+
         # eval
-        logits, labels, metrics = trainer.predict(tokenized_dataset['test'])
+        logits, labels, metrics = trainer.predict(tokenized_dataset["test"])
 
         # end
         wandb.finish()
         del model
-    
+
         # save
-        filtered_metrics = {key: value for key, value in metrics.items() if key in results.columns}
-        filtered_metrics['model'] = args.model_name
-        filtered_metrics['itr'] = i
+        filtered_metrics = {
+            key: value for key, value in metrics.items() if key in results.columns
+        }
+        filtered_metrics["model"] = args.model_name
+        filtered_metrics["itr"] = i
         results = results.append(filtered_metrics, ignore_index=True)
 
-    results.to_csv(f"./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv", index=False)
+    results.to_csv(
+        f"./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv",
+        index=False,
+    )
+
 
 if __name__ == "__main__":
     main()
