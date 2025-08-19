@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import polars as pl
 import seaborn as sns
 
@@ -26,12 +27,14 @@ def pointplot(
     xtick_labelsize: int | None = 12,
     ytick_labels: list | None = None,
     ytick_labelsize: int | None = 12,
+    y_sci_notation: bool = False,
     figsize: list = [5, 4],
     figfile: str | None = None,
 ) -> None:
 
     plt.figure(figsize=figsize)
 
+    # seaborn point plot
     ax = sns.pointplot(
         data=data,
         x=x,
@@ -47,6 +50,7 @@ def pointplot(
         errorbar=errorbar,
     )
 
+    # legend
     if show_legend:
         default_legend_kwargs = dict(
             loc="upper left",
@@ -62,18 +66,26 @@ def pointplot(
     if yscale is not None:
         ax.set_yscale(yscale)
 
+    # set x axis labels & ticks
     if xlabel is not None:
         ax.set_xlabel(xlabel, fontsize=xlabel_fontsize)
     if xtick_labels is not None:
         ax.set_xticklabels(xtick_labels)
     ax.tick_params(axis="x", labelsize=xtick_labelsize)
 
+    # set y axis labels & ticks
     if ylabel is not None:
         ax.set_ylabel(ylabel, fontsize=ylabel_fontsize)
     if ytick_labels is not None:
         ax.set_yticklabels(ytick_labels)
     ax.tick_params(axis="y", labelsize=ytick_labelsize)
 
+    # optionally make y axis scientific notation
+    if y_sci_notation:
+        ax.yaxis.set_major_formatter(ticker.ScalarFormatter(useMathText=True))
+        ax.ticklabel_format(style="sci", axis="y", scilimits=(0, 0))
+
+    # save or show
     plt.tight_layout()
     if figfile is not None:
         plt.savefig(figfile, bbox_inches="tight", dpi=300)
