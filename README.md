@@ -18,7 +18,7 @@ Models can be trained from scratch by running `ModelTrainer.py` with an associat
 
 Configuration for the training process is managed through YAML files. We provide five main `config.yaml` files, one for each of the supported model parameter sizes: ***8M, 35M, 150M, 350M, and 650M***. Within each of these model-specific YAML files, you can select the dataset size for training (Quarter, Half, or Full).
 
-Training datasets and weights for the pre-trained models can be downloaded from [Zenodo](https://zenodo.org/records/15447079). All model weights are also available on [Hugging Face](https://huggingface.co/collections/brineylab/ablms-scaling-laws-6824e4beaabf4b16107cac4f).
+Training datasets and weights for the pre-trained models can be downloaded from [Zenodo](https://zenodo.org/records/16938681). All model weights are also available on [Hugging Face](https://huggingface.co/collections/brineylab/ablms-scaling-laws-6824e4beaabf4b16107cac4f).
 
 ## Citation
 
