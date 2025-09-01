@@ -1,7 +1,7 @@
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?logo=Jupyter)](https://jupyter.org/try)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447079.svg)](https://doi.org/10.5281/zenodo.15447079)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16938681.svg)](https://doi.org/10.5281/zenodo.16938681)
 
 # Data-optimal scaling laws for natively paired antibody language models
 
