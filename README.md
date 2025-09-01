@@ -25,5 +25,6 @@ Training datasets and weights for the pre-trained models can be downloaded from 
 The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.08.26) can be cited as:
 
 ```
-Shafiei Neyestanak, M., & Briney, B. (2025). Data-optimal scaling of paired antibody language models (v2025.08.26) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16938681
+Shafiei Neyestanak, M., & Briney, B. (2025). Data-optimal scaling of paired antibody language 
+models (v2025.08.26) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16938681
 ``` 
