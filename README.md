@@ -22,6 +22,12 @@ Training datasets and weights for the pre-trained models can be downloaded from 
 
 ## Citation
 
+The Scaling law  paper has been published as a [preprint on biorxiv](https://www.biorxiv.org/content/10.1101/2025.09.02.673765v1), and can be cited as: 
+```
+Neyestanak, M. S., Burbach, S. M., Ng, K., Gangavarapu, P., Hurtado, J., Magura, J., Ismail, N., Muema, D., Ndung’u, T., Ward, A., & Briney, B. (2025). Data-optimal scaling of paired antibody language models. bioRxiv. https://doi.org/10.1101/2025.09.02.673765
+```
+
+
 The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.08.26) can be cited as:
 
 ```
