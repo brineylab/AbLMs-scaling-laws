@@ -22,9 +22,10 @@ Training datasets and weights for the pre-trained models can be downloaded from 
 
 ## Citation
 
-The Scaling law  paper has been published as a [preprint on biorxiv](https://www.biorxiv.org/content/10.1101/2025.09.02.673765v1), and can be cited as: 
+The Scaling Law  paper has been published as a [preprint on biorxiv](https://www.biorxiv.org/content/10.1101/2025.09.02.673765v1), and can be cited as: 
 ```
-Neyestanak, M. S., Burbach, S. M., Ng, K., Gangavarapu, P., Hurtado, J., Magura, J., Ismail, N., Muema, D., Ndung’u, T., Ward, A., & Briney, B. (2025). Data-optimal scaling of paired antibody language models. bioRxiv. https://doi.org/10.1101/2025.09.02.673765
+Neyestanak, M. S., Burbach, S. M., Ng, K., Gangavarapu, P., Hurtado, J., Magura, J., Ismail, N., Muema, D., Ndung’u, T., Ward, A., & Briney, B. (2025). 
+Data-optimal scaling of paired antibody language models. bioRxiv. https://doi.org/10.1101/2025.09.02.673765
 ```
 
 
