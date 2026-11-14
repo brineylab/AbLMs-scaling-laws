@@ -23,14 +23,14 @@ from sklearn.metrics import (
 )
 import evaluate
 
-HERE = pathlib.Path(__file__).resolve().parent
-
 accuracy = evaluate.load("accuracy")
 from datetime import date
 import wandb
 import pandas as pd
 import numpy as np
 import os
+
+HERE = pathlib.Path(__file__).resolve().parent
 
 
 # parser
