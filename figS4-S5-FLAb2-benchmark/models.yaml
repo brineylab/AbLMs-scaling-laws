@@ -1,0 +1,95 @@
+# The 15 scaling-law AbLMs on the Hugging Face hub, and the checkpoint step of each
+# (the step is part of the repository name). See the repository README.
+tokenizer: facebook/esm2_t33_650M_UR50D  # stock ESM-2 vocabulary, the same for every size
+separator: "<cls><cls>"
+models:
+  8M_full:
+    checkpoint: brineylab/8M_full_checkpoint-500000
+    size: 8M
+    tier: full
+    hidden_size: 320
+    num_hidden_layers: 6
+  8M_half:
+    checkpoint: brineylab/8M_half_checkpoint-435000
+    size: 8M
+    tier: half
+    hidden_size: 320
+    num_hidden_layers: 6
+  8M_quarter:
+    checkpoint: brineylab/8M_quarter_checkpoint-425000
+    size: 8M
+    tier: quarter
+    hidden_size: 320
+    num_hidden_layers: 6
+  35M_full:
+    checkpoint: brineylab/35M_full_checkpoint-500000
+    size: 35M
+    tier: full
+    hidden_size: 480
+    num_hidden_layers: 12
+  35M_half:
+    checkpoint: brineylab/35M_half_checkpoint-430000
+    size: 35M
+    tier: half
+    hidden_size: 480
+    num_hidden_layers: 12
+  35M_quarter:
+    checkpoint: brineylab/35M_quarter_checkpoint-240000
+    size: 35M
+    tier: quarter
+    hidden_size: 480
+    num_hidden_layers: 12
+  150M_full:
+    checkpoint: brineylab/150M_full_checkpoint-500000
+    size: 150M
+    tier: full
+    hidden_size: 640
+    num_hidden_layers: 30
+  150M_half:
+    checkpoint: brineylab/150M_half_checkpoint-330000
+    size: 150M
+    tier: half
+    hidden_size: 640
+    num_hidden_layers: 30
+  150M_quarter:
+    checkpoint: brineylab/150M_quarter_checkpoint-165000
+    size: 150M
+    tier: quarter
+    hidden_size: 640
+    num_hidden_layers: 30
+  350M_full:
+    checkpoint: brineylab/350M_full_checkpoint-500000
+    size: 350M
+    tier: full
+    hidden_size: 960
+    num_hidden_layers: 32
+  350M_half:
+    checkpoint: brineylab/350M_half_checkpoint-300000
+    size: 350M
+    tier: half
+    hidden_size: 960
+    num_hidden_layers: 32
+  350M_quarter:
+    checkpoint: brineylab/350M_quarter_checkpoint-155000
+    size: 350M
+    tier: quarter
+    hidden_size: 960
+    num_hidden_layers: 32
+  650M_full:
+    checkpoint: brineylab/650M_full_checkpoint-395000
+    size: 650M
+    tier: full
+    hidden_size: 1280
+    num_hidden_layers: 33
+  650M_half:
+    checkpoint: brineylab/650M_half_checkpoint-330000
+    size: 650M
+    tier: half
+    hidden_size: 1280
+    num_hidden_layers: 33
+  650M_quarter:
+    checkpoint: brineylab/650M_quarter_checkpoint-130000
+    size: 650M
+    tier: quarter
+    hidden_size: 1280
+    num_hidden_layers: 33

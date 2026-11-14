@@ -172,3 +172,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Datasets downloaded from Zenodo / FLAb, and what the scripts write from them
+*/data/
+figS4-S5-FLAb2-benchmark/FLAb_repo/
+figS4-S5-FLAb2-benchmark/results/
