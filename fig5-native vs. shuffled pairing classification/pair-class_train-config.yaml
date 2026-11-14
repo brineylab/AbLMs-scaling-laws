@@ -17,7 +17,7 @@ max_length: 320
 separator_token: "<cls><cls>"
 
 # Datasets (replace with the path that your data is in there)
-data_path: "./data/train-test_splits/native-0_shuffled-1_"
+data_path: "./data/Native_paired/native-0_shuffled-1_"
 file_type: "csv"
 
 # Training Arguments

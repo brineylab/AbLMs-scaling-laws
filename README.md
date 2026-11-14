@@ -13,7 +13,7 @@ Scaling laws for large language models in natural language domains are typically
 |---|---|
 | [`01-pre-train-AbLMs`](./01-pre-train-AbLMs/) | the fifteen pretrained AbLMs |
 | [`fig2-CE loss curve plots`](./fig2-CE%20loss%20curve%20plots/) | cross-entropy loss per model, the FixedData profiles and the scaling law (Fig 2, S3 Table) |
-| [`fig3-per-residue-prediction`](./fig3-per-residue-prediction/) | per-position amino-acid prediction (Fig 3, S4 and S5 Tables) |
+| [`fig3-per-residue-prediction`](./fig3-per-residue-prediction/) | per-position amino-acid prediction (Fig 3) |
 | [`fig4-Ab_specificity_classifications`](./fig4-Ab_specificity_classifications/) | antibody specificity classification (Fig 4, S6 Table) |
 | [`fig5-native vs. shuffled pairing classification`](./fig5-native%20vs.%20shuffled%20pairing%20classification/) | native vs. shuffled heavy/light pairing (Fig 5, S7 Table) |
 | [`figS4-S5-FLAb2-benchmark`](./figS4-S5-FLAb2-benchmark/) | the FLAb2 fitness benchmark, zero-shot and few-shot (S4 Fig, S5 Fig) |
@@ -47,8 +47,6 @@ training loss (S1 Table); it is part of the repository name:
 | **350M** | `350M_quarter_checkpoint-155000` | `350M_half_checkpoint-300000` | `350M_full_checkpoint-500000` |
 | **650M** | `650M_quarter_checkpoint-130000` | `650M_half_checkpoint-330000` | `650M_full_checkpoint-395000` |
 
-The same checkpoints are archived on [Zenodo](https://zenodo.org/records/16938681).
-
 A note on the separator: pretraining, the per-residue inference, the pairing classifier and the
 FLAb2 evaluation all join the two chains with `<cls><cls>`. The two specificity classifiers of
 Fig 4 use `<sep>`, which is not part of the ESM-2 vocabulary and is tokenized as a single
@@ -72,9 +70,9 @@ The FLAb2 benchmark is not ours and stays where it is published, at
 
 ## Pretraining AbLMs
 
-Models can be trained from scratch by running `ModelTrainer.py` with an associated `train-config_<modelname>.yaml`, as described [here](https://github.com/brineylab/deepspeed/tree/main).
+Models can be trained from scratch by running `ModelTrainer.py` with an associated `train_config_<size>.yaml`, as described [here](https://github.com/brineylab/deepspeed/tree/main).
 
-Configuration for the training process is managed through YAML files. We provide five main `config.yaml` files, one for each of the supported model parameter sizes: ***8M, 35M, 150M, 350M, and 650M***. Within each of these model-specific YAML files, you can select the dataset size for training (Quarter, Half, or Full).
+Configuration for the training process is managed through YAML files. We provide five of them, one for each of the supported model parameter sizes: ***8M, 35M, 150M, 350M, and 650M***. Within each of these model-specific YAML files, you can select the dataset size for training (Quarter, Half, or Full).
 
 ## Citation
 

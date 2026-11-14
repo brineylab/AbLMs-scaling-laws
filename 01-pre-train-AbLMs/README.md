@@ -2,7 +2,7 @@
 
 This repo uses a unified script, `ModelTrainer.py`, to pre-train all AbLMs.
 
-Training is configured via five `config.yaml` files, each for a different model size: 8M, 35M, 150M, 350M, and 650M.
+Training is configured via five `train_config_<size>.yaml` files, one for each model size: 8M, 35M, 150M, 350M, and 650M.
 
 Each config supports three dataset sizes: Quarter, Half, and Full. The paths to the dataset sizes can be changed using the `train_file` parameter. The three training sets, the validation set and the test set are `train-eval-test.zip` on [Zenodo](https://zenodo.org/records/16938681).
 

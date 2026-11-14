@@ -6,9 +6,9 @@ The fine-tuning script `02_pair_classification-5itr.py` can be run with its asso
 ### Data
 
 The five folds are `Native_paired.zip` on [Zenodo](https://zenodo.org/records/16938681); unzip it
-so that the CSVs sit at `data/train-test_splits/native-0_shuffled-1_{train,test}{i}.csv`, which is
-the `data_path` in the config. They were made by `01_kfold-split.ipynb` from the shuffled dataset,
-so that notebook only has to be run if you build the pairs yourself.
+inside `data/`, which puts them at the `data_path` the config expects. They were made by
+`01_kfold-split.ipynb` from the shuffled dataset, so that notebook only has to be run if you build
+the pairs yourself.
 
 `04_plots.ipynb` also uses the annotated repertoires the pairs were drawn from
 (`data/all_combined.csv` and the two `data/HDfluJOY_SAHD_*_AbLM.csv` tables), which carry the
