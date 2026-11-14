@@ -7,8 +7,8 @@ the base model stays frozen.
 
 ## Data Setup
 
-Both datasets are on [Zenodo](https://zenodo.org/records/16938681). Unzip them under `data/`,
-then make the 5-fold splits with `01_stratified-kfold-split.ipynb`:
+Both datasets are on [Zenodo](https://zenodo.org/records/16938681). Unzip them into a `data/`
+folder here, then make the 5-fold splits with `01_stratified-kfold-split.ipynb`:
 
 | Zenodo archive | put it at | folds written by the notebook |
 |---|---|---|
@@ -18,7 +18,8 @@ then make the 5-fold splits with `01_stratified-kfold-split.ipynb`:
 The CSVs have the columns `name`, `h_sequence`, `l_sequence` and `label`. **The labels are
 0 = healthy donor, 1 = CoV and 2 = influenza**, which is what the file name says.
 
-The scripts expect to be run from the root of the repository, so that `./data/...` resolves.
+The scripts look for `data/` and write their results next to themselves, so it does not matter
+which directory you launch them from.
 
 ## Running the Script
 
@@ -27,7 +28,7 @@ model checkpoint, local or a Hugging Face repo id) and `--model_name` (used for 
 result file names) arguments. For example:
 
 ```bash
-accelerate launch fig4-Ab_specificity_classifications/02_HD_vs_CoV.py \
+accelerate launch 02_HD_vs_CoV.py \
     --model brineylab/350M_full_checkpoint-500000 \
     --model_name esm_350M_full
 ```

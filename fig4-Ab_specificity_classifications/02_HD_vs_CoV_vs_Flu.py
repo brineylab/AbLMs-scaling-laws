@@ -20,6 +20,8 @@ from sklearn.metrics import (
 )
 import evaluate
 
+HERE = pathlib.Path(__file__).resolve().parent
+
 accuracy = evaluate.load("accuracy")
 from datetime import date
 import wandb
@@ -159,8 +161,8 @@ def main():
         # load dataset
         data_files = DatasetDict(
             {
-                "train": f"./data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_train{i}.csv",
-                "test": f"./data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_test{i}.csv",
+                "train": f"{HERE}/data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_train{i}.csv",
+                "test": f"{HERE}/data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_test{i}.csv",
             }
         )
         dataset = load_dataset("csv", data_files=data_files)
@@ -213,7 +215,7 @@ def main():
             for class_id, class_name in id2label.items():
                 preds[f"prob_{class_name}"] = probs[:, class_id]
 
-            pred_dir = "./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/predictions"
+            pred_dir = f"{HERE}/results_HD-Flu-CoV/predictions"
             os.makedirs(pred_dir, exist_ok=True)
             preds.to_csv(
                 f"{pred_dir}/{args.model_name}_predictions_itr{i}.csv", index=False
@@ -232,7 +234,7 @@ def main():
         results = results.append(filtered_metrics, ignore_index=True)
 
     results.to_csv(
-        f"./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv",
+        f"{HERE}/results_HD-Flu-CoV/{args.model_name}_HD-Flu-CoV_5fold_results.csv",
         index=False,
     )
 

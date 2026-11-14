@@ -23,6 +23,8 @@ from sklearn.metrics import (
 )
 import evaluate
 
+HERE = pathlib.Path(__file__).resolve().parent
+
 accuracy = evaluate.load("accuracy")
 from datetime import date
 import wandb
@@ -192,8 +194,8 @@ def main():
         # load dataset
         data_files = DatasetDict(
             {
-                "train": f"./data/classification/5_folded/hd-0_cov-1_train{i}.csv",
-                "test": f"./data/classification/5_folded/hd-0_cov-1_test{i}.csv",
+                "train": f"{HERE}/data/classification/5_folded/hd-0_cov-1_train{i}.csv",
+                "test": f"{HERE}/data/classification/5_folded/hd-0_cov-1_test{i}.csv",
             }
         )
         dataset = load_dataset("csv", data_files=data_files)
@@ -247,7 +249,7 @@ def main():
         results = results.append(filtered_metrics, ignore_index=True)
 
     results.to_csv(
-        f"./fig4-Ab_specificity_classifications/results_HDvsCoV/{args.model_name}_HD-CoV-5fold_results.csv",
+        f"{HERE}/results_HDvsCoV/{args.model_name}_HD-CoV-5fold_results.csv",
         index=False,
     )
 
