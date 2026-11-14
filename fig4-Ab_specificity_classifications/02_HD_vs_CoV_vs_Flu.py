@@ -119,10 +119,11 @@ def main():
     args = parser()
 
     # labels
-    class_labels = ClassLabel(names=["Healthy-donor", "Flu-specific", "Sars-specific"])
+    # the label column of hd-0_CoV-1_flu-2.csv is 0 = healthy donor, 1 = CoV, 2 = influenza
+    class_labels = ClassLabel(names=["Healthy-donor", "CoV-specific", "Flu-specific"])
     n_classes = len(class_labels.names)
-    label2id = {"Healthy-donor": 0, "Flu-specific": 1, "Sars-specific": 2}
-    id2label = {0: "Healthy-donor", 1: "Flu-specific", 2: "Sars-specific"}
+    label2id = {"Healthy-donor": 0, "CoV-specific": 1, "Flu-specific": 2}
+    id2label = {0: "Healthy-donor", 1: "CoV-specific", 2: "Flu-specific"}
 
     # tokenizer
     tokenizer = EsmTokenizer.from_pretrained("facebook/esm2_t12_35M_UR50D")
@@ -158,8 +159,8 @@ def main():
         # load dataset
         data_files = DatasetDict(
             {
-                "train": f"./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_train{i}.csv",
-                "test": f"./data/HDvsFluvsCov/5_folded/hd-0_flu-1_cov-2_test{i}.csv",
+                "train": f"./data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_train{i}.csv",
+                "test": f"./data/HDvsFluvsCov/5_folded/hd-0_CoV-1_flu-2_test{i}.csv",
             }
         )
         dataset = load_dataset("csv", data_files=data_files)
@@ -199,6 +200,24 @@ def main():
 
         # eval
         logits, labels, metrics = trainer.predict(tokenized_dataset["test"])
+
+        # per-sequence predictions, plotted as a confusion matrix in 03_plots_HD-CoV-Flu.ipynb
+        if trainer.is_world_process_zero():
+            logits = np.asarray(logits, dtype=np.float64)
+            exp = np.exp(logits - logits.max(axis=1, keepdims=True))
+            probs = exp / exp.sum(axis=1, keepdims=True)
+
+            preds = pd.read_csv(data_files["test"])
+            assert (preds["label"].to_numpy() == np.asarray(labels)).all()
+            preds["prediction"] = logits.argmax(axis=1)
+            for class_id, class_name in id2label.items():
+                preds[f"prob_{class_name}"] = probs[:, class_id]
+
+            pred_dir = "./fig4-Ab_specificity_classifications/results_HD-Flu-CoV/predictions"
+            os.makedirs(pred_dir, exist_ok=True)
+            preds.to_csv(
+                f"{pred_dir}/{args.model_name}_predictions_itr{i}.csv", index=False
+            )
 
         # end
         wandb.finish()

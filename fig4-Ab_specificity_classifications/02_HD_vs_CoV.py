@@ -150,10 +150,11 @@ def main():
     args = parser()
 
     # labels
-    class_labels = ClassLabel(names=["Healthy-donor", "Sars-specific"])
+    # the label column of HD_vs_COV.csv is 0 = healthy donor, 1 = CoV
+    class_labels = ClassLabel(names=["Healthy-donor", "CoV-specific"])
     n_classes = len(class_labels.names)
-    label2id = {"Healthy-donor": 0, "Sars-specific": 1}
-    id2label = {0: "Healthy-donor", 1: "Sars-specific"}
+    label2id = {"Healthy-donor": 0, "CoV-specific": 1}
+    id2label = {0: "Healthy-donor", 1: "CoV-specific"}
 
     # tokenizer
     tokenizer = EsmTokenizer.from_pretrained("facebook/esm2_t12_35M_UR50D")
@@ -191,8 +192,8 @@ def main():
         # load dataset
         data_files = DatasetDict(
             {
-                "train": f"/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/data/5_folded/hd-0_cov-1_train{i}.csv",
-                "test": f"/home/jovyan/shared/mahdi/1_projects/model_optimization/02classification/data/5_folded/hd-0_cov-1_test{i}.csv",
+                "train": f"./data/classification/5_folded/hd-0_cov-1_train{i}.csv",
+                "test": f"./data/classification/5_folded/hd-0_cov-1_test{i}.csv",
             }
         )
         dataset = load_dataset("csv", data_files=data_files)
