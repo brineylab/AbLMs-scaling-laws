@@ -3,22 +3,78 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16938681.svg)](https://doi.org/10.5281/zenodo.16938681)
 
-# Data-optimal scaling laws for natively paired antibody language models
+# Data-optimal scaling of paired antibody language models
 
-**Motivation**: Antibody language models (AbLMs) play a critical role in exploring the extensive sequence diversity of antibody repertoires, significantly enhancing therapeutic discovery. However, the optimal strategy for scaling these models, particularly concerning the interplay between model size and data availability, remains underexplored, especially in contrast to natural language processing where data is abundant. This study aims to systematically investigate scaling laws in AbLMs to define optimal scaling thresholds and maximize their potential in antibody engineering and discovery.
+Scaling laws for large language models in natural language domains are typically derived under the assumption that performance is primarily compute-constrained. In contrast, antibody language models (AbLMs) trained on paired sequences are primarily data-limited, thus requiring different considerations. To explore how model size and data scale affect AbLM performance, we trained 15 AbLMs across all pairwise combinations of five model sizes and three training data sizes. From these experiments, we derive an AbLM-specific scaling law and estimate that training a data-optimal AbLM equivalent of the highly performant 650M-parameter ESM-2 protein language model would require ~5.2 million paired antibody sequences. Evaluation on multiple downstream classification tasks revealed that significant performance gains emerged only with sufficiently large model size, suggesting that in data-limited domains, improved performance depends jointly on both model scale and data volume.
 
-**Results**: This study pretrained ESM-2 architecture models across five distinct model sizes (8 million to 650 million parameters) and three training data scales (Quarter, Half, and Full datasets, with the full set comprising ~1.6 million paired antibody sequences). Performance was evaluated using cross-entropy loss and downstream tasks, including per-position amino acid prediction, antibody specificity classification, and native heavy-light chain pairing recognition. Findings reveal that increasing model size does not monotonically improve performance. For instance, with the full dataset, the optimal model size is predicted to be around ~152M parameters. The 350M parameter model trained on the full dataset (350M-F) often demonstrated optimal or near-optimal performance in downstream tasks, such as achieving the highest accuracy in predicting mutated CDRH3 regions. 
+## What is in this repository
 
-**Conclusion**: These results underscore that in data-constrained domains like paired AbLMs, strategically balancing model capacity with dataset size is crucial, as simply increasing model parameters without a proportional increase in diverse training data can lead to diminishing returns or even impaired generalization. Our findings also underscore the importance of generating additional high-quality, paired antibody sequence data to improve AbLM performance.
+| folder | what it makes |
+|---|---|
+| [`01-pre-train-AbLMs`](./01-pre-train-AbLMs/) | the fifteen pretrained AbLMs |
+| [`fig2-CE loss curve plots`](./fig2-CE%20loss%20curve%20plots/) | cross-entropy loss per model, the FixedData profiles and the scaling law (Fig 2, S3 Table) |
+| [`fig3-per-residue-prediction`](./fig3-per-residue-prediction/) | per-position amino-acid prediction (Fig 3, S4 and S5 Tables) |
+| [`fig4-Ab_specificity_classifications`](./fig4-Ab_specificity_classifications/) | antibody specificity classification (Fig 4, S6 Table) |
+| [`fig5-native vs. shuffled pairing classification`](./fig5-native%20vs.%20shuffled%20pairing%20classification/) | native vs. shuffled heavy/light pairing (Fig 5, S7 Table) |
+| [`figS4-S5-FLAb2-benchmark`](./figS4-S5-FLAb2-benchmark/) | the FLAb2 fitness benchmark, zero-shot and few-shot (S4 Fig, S5 Fig) |
+
+Each folder has its own README with the order to run things in and where its data comes from.
+`requirements.txt` pins the versions these results were produced with.
+
+## Models
+
+All fifteen models are on the [Hugging Face hub](https://huggingface.co/collections/brineylab/ablms-scaling-laws)
+and can be loaded by name, for example:
+
+```python
+from transformers import EsmTokenizer, EsmForMaskedLM
+
+model = EsmForMaskedLM.from_pretrained("brineylab/350M_full_checkpoint-500000")
+tokenizer = EsmTokenizer.from_pretrained("brineylab/350M_full_checkpoint-500000")
+
+# a paired antibody is one string: the two chains joined by two <cls> tokens
+inputs = tokenizer(heavy + "<cls><cls>" + light, return_tensors="pt")
+```
+
+The checkpoint of each model is the step at which the evaluation loss began diverging from the
+training loss (S1 Table); it is part of the repository name:
+
+| | Dataset-Q | Dataset-H | Dataset-F |
+|---|---|---|---|
+| **8M** | `8M_quarter_checkpoint-425000` | `8M_half_checkpoint-435000` | `8M_full_checkpoint-500000` |
+| **35M** | `35M_quarter_checkpoint-240000` | `35M_half_checkpoint-430000` | `35M_full_checkpoint-500000` |
+| **150M** | `150M_quarter_checkpoint-165000` | `150M_half_checkpoint-330000` | `150M_full_checkpoint-500000` |
+| **350M** | `350M_quarter_checkpoint-155000` | `350M_half_checkpoint-300000` | `350M_full_checkpoint-500000` |
+| **650M** | `650M_quarter_checkpoint-130000` | `650M_half_checkpoint-330000` | `650M_full_checkpoint-395000` |
+
+The same checkpoints are archived on [Zenodo](https://zenodo.org/records/16938681).
+
+A note on the separator: pretraining, the per-residue inference, the pairing classifier and the
+FLAb2 evaluation all join the two chains with `<cls><cls>`. The two specificity classifiers of
+Fig 4 use `<sep>`, which is not part of the ESM-2 vocabulary and is tokenized as a single
+`<unk>`; that is what those classifiers were trained with, and their README says so.
+
+## Data
+
+Every dataset is on [Zenodo](https://zenodo.org/records/16938681). Each archive belongs to one
+part of the analysis:
+
+| archive | used by |
+|---|---|
+| `train-eval-test.zip` | pretraining (`01-pre-train-AbLMs`) |
+| `Fixed_data_profiles.zip` | the ten donor test sets of the loss evaluation (`fig2-...`) |
+| `Per-residue_pred.zip` | per-residue prediction (`fig3-...`) |
+| `HD_vs_COV.csv.zip`, `hd-0_CoV-1_flu-2.csv.zip` | specificity classification (`fig4-...`) |
+| `Native_paired.zip` | pairing classification (`fig5-...`) |
+
+The FLAb2 benchmark is not ours and stays where it is published, at
+[Graylab/FLAb](https://github.com/Graylab/FLAb).
 
 ## Pretraining AbLMs
-This repository contains all the code required for pre-training the Antibody Language Models (AbLMs) developed in this study in this folder: [01-pre-train-AbLMs](./01-pre-train-AbLMs/).
 
 Models can be trained from scratch by running `ModelTrainer.py` with an associated `train-config_<modelname>.yaml`, as described [here](https://github.com/brineylab/deepspeed/tree/main).
 
 Configuration for the training process is managed through YAML files. We provide five main `config.yaml` files, one for each of the supported model parameter sizes: ***8M, 35M, 150M, 350M, and 650M***. Within each of these model-specific YAML files, you can select the dataset size for training (Quarter, Half, or Full).
-
-Training datasets and weights for the pre-trained models can be downloaded from [Zenodo](https://zenodo.org/records/16938681). All model weights are also available on [Hugging Face](https://huggingface.co/collections/brineylab/ablms-scaling-laws-6824e4beaabf4b16107cac4f).
 
 ## Citation
 
