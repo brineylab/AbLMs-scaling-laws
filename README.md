@@ -16,7 +16,7 @@ Scaling laws for large language models in natural language domains are typically
 | [`fig3-per-residue-prediction`](./fig3-per-residue-prediction/) | per-position amino-acid prediction (Fig 3) |
 | [`fig4-Ab_specificity_classifications`](./fig4-Ab_specificity_classifications/) | antibody specificity classification (Fig 4, S6 Table) |
 | [`fig5-native vs. shuffled pairing classification`](./fig5-native%20vs.%20shuffled%20pairing%20classification/) | native vs. shuffled heavy/light pairing (Fig 5, S7 Table) |
-| [`figS4-S5-FLAb2-benchmark`](./figS4-S5-FLAb2-benchmark/) | the FLAb2 fitness benchmark, zero-shot and few-shot (S4 Fig, S5 Fig) |
+| [`figS4-S5-FLAb2-benchmark`](./figS4-S5-FLAb2-benchmark/) | the FLAb2 fitness benchmark, zero-shot and with a supervised probe (S4 Fig, S5 Fig) |
 
 Each folder has its own README with the order to run things in and where its data comes from.
 `requirements.txt` pins the versions these results were produced with.
