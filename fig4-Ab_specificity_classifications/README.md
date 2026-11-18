@@ -7,7 +7,7 @@ the base model stays frozen.
 
 ## Data Setup
 
-Both datasets are on [Zenodo](https://zenodo.org/records/16938681). Unzip them into a `data/`
+Both datasets are on [Zenodo](https://doi.org/10.5281/zenodo.15447078). Unzip them into a `data/`
 folder here, then make the 5-fold splits with `01_stratified-kfold-split.ipynb`:
 
 | Zenodo archive | put it at | folds written by the notebook |

@@ -4,7 +4,7 @@ To reproduce the model testing analysis shown in Figure 2:
 
 1.  Run `01-testing_AbLMs.ipynb`, once per model. It evaluates one pre-trained Antibody Language
     Model (AbLM) on the ten donor test datasets available
-    [here](https://zenodo.org/records/16938681) (`Fixed_data_profiles.zip`, unzipped into
+    [here](https://doi.org/10.5281/zenodo.15447078) (`Fixed_data_profiles.zip`, unzipped into
     `data/`), and prints the cross-entropy loss on each donor and the mean over the ten.
 2.  Collect the fifteen means in `isodata.csv`, next to these notebooks, with one row per model:
 

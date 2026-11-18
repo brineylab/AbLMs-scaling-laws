@@ -5,7 +5,7 @@ The fine-tuning script `02_pair_classification-5itr.py` can be run with its asso
 
 ### Data
 
-The five folds are `Native_paired.zip` on [Zenodo](https://zenodo.org/records/16938681); unzip it
+The five folds are `Native_paired.zip` on [Zenodo](https://doi.org/10.5281/zenodo.15447078); unzip it
 inside `data/`, which puts them at the `data_path` the config expects. They were made by
 `01_kfold-split.ipynb` from the shuffled dataset, so that notebook only has to be run if you build
 the pairs yourself.

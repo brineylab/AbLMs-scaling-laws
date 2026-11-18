@@ -1,7 +1,7 @@
 [![Made withJupyter](https://img.shields.io/badge/Made%20with-Jupyter-orange?logo=Jupyter)](https://jupyter.org/try)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.16938681.svg)](https://doi.org/10.5281/zenodo.16938681)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15447078.svg)](https://doi.org/10.5281/zenodo.15447078)
 
 # Data-optimal scaling of paired antibody language models
 
@@ -47,6 +47,9 @@ training loss (S1 Table); it is part of the repository name:
 | **350M** | `350M_quarter_checkpoint-155000` | `350M_half_checkpoint-300000` | `350M_full_checkpoint-500000` |
 | **650M** | `650M_quarter_checkpoint-130000` | `650M_half_checkpoint-330000` | `650M_full_checkpoint-395000` |
 
+The same fifteen models are archived on [Zenodo](https://doi.org/10.5281/zenodo.15447078) as one
+zip each, holding the weights with their configuration and tokenizer files.
+
 A note on the separator: pretraining, the per-residue inference, the pairing classifier and the
 FLAb2 evaluation all join the two chains with `<cls><cls>`. The two specificity classifiers of
 Fig 4 use `<sep>`, which is not part of the ESM-2 vocabulary and is tokenized as a single
@@ -54,7 +57,7 @@ Fig 4 use `<sep>`, which is not part of the ESM-2 vocabulary and is tokenized as
 
 ## Data
 
-Every dataset is on [Zenodo](https://zenodo.org/records/16938681). Each archive belongs to one
+Every dataset is on [Zenodo](https://doi.org/10.5281/zenodo.15447078). Each archive belongs to one
 part of the analysis:
 
 | archive | used by |
@@ -84,9 +87,9 @@ bioRxiv. 2025:2025-09.
 ```
 
 
-The current version of the datasets used for pre-training and classifier head fine-tuning (v2025.08.26) can be cited as:
+The current version of the Zenodo archive, which holds the fifteen pre-trained models alongside the datasets used for pre-training and classifier head fine-tuning (v2026.11.17), can be cited as:
 
 ```
-Shafiei Neyestanak, M., & Briney, B. (2025). Data-optimal scaling of paired antibody language 
-models (v2025.08.26) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.16938681
+Shafiei Neyestanak, M., & Briney, B. (2026). Data-optimal scaling of paired antibody language 
+models (v2026.11.17) [Data set]. Zenodo. https://doi.org/10.5281/zenodo.15447078
 ``` 
